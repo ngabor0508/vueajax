@@ -4,7 +4,7 @@
     <table>
       <thead>
         <tr>
-          <th>Azonsító</th>
+          <th>Id</th>
           <th>Person</th>
           <th>Height</th>
           <th>Price</th>
@@ -18,7 +18,7 @@
           <td>{{ statue.height }}</td>
           <td>{{ statue.price }}</td>
           <td>
-            <button @click="deleteStatues(statue.id)">Törlés</button>
+            <button @click="deleteStatue(statue.id)">Törlés</button>
             <button @click="editStatue(statue.id)">Szerkesztés</button>
           </td>
         </tr>
@@ -79,7 +79,7 @@ export default {
       console.log(Response)
       await this.loadData()
     },
-    async newStatues() {
+    async newStatue() {
       this.saving='disabled'
      await fetch('http://127.0.0.1:8000/api/statues', {
        method: 'POST',
@@ -87,7 +87,7 @@ export default {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
        },
-       body: JSON.stringify(this.statue) 
+       body: JSON.stringify(this.statues) 
      })
      await this.loadData()
      this.saving=false
@@ -107,7 +107,7 @@ export default {
      this.saving=false
      this.resetForm()
     },
-    async editStatues(id) {
+    async editStatue(id) {
       let Response = await fetch(`http://127.0.0.1:8000/api/statues/${id}`)
       let data = await Response.json()
       this.statue = {...data};
@@ -130,7 +130,7 @@ export default {
     this.loadData()
   }
 }
-</script>
+</script> 
 
 <style>
 #app {
